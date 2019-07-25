@@ -3,15 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "graphql": "^14.4.2",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-relay": "^5.0.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "schema": "graphql get-schema",
+    "relay": "relay-compiler --src ./src --schema ./schema.graphql --artifactDirectory ./src/__generated__ --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,6 +33,23 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-plugin-relay": "^5.0.0",
+    "relay-compiler": "^5.0.0"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "relay",
+        {
+          "artifactDirectory": "./src/__generated__"
+        }
+      ]
     ]
   }
 }

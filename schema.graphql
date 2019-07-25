@@ -1,0 +1,228 @@
+# source: https://api.ektdevelopers.com/_graphql
+# timestamp: Thu Jul 25 2019 16:02:35 GMT-0500 (Central Daylight Time)
+
+"""Unidad minima de contruccion de paginas"""
+union Content = Slider | Pleca
+
+"""Campo primario de imagenes"""
+type Image {
+  desktopSource: String
+  mobileSource: String
+  alt: String
+}
+
+"""Campo primario de imagenes"""
+input ImageInput {
+  desktopSource: String
+  mobileSource: String
+  alt: String
+}
+
+"""A scalar to utilize the @match and @module directive from relay."""
+scalar JSDependency
+
+type LightningOffer {
+  id: ID
+  offerId: String
+  product: Product
+}
+
+type LightningOfferRule {
+  id: ID
+  sku: String
+  startDate: ScalarDate
+  endDate: ScalarDate
+}
+
+input LightningOfferRuleInput {
+  id: ID
+  sku: String
+  startDate: ScalarDate
+  endDate: ScalarDate
+}
+
+"""Campo primario de link"""
+type Link {
+  value: String
+  title: String
+  target: String
+  postMode: String
+  analytics: LinkTag
+}
+
+"""Campo primario de link"""
+input LinkInput {
+  value: String
+  title: String
+  target: String
+  postMode: String
+  analytics: LinkTagInput
+}
+
+"""Informacion del link para Google Tagmanager (Tracking)"""
+type LinkTag {
+  creative: String
+  moduleName: String
+}
+
+"""Informacion del link para Google Tagmanager (Tracking)"""
+input LinkTagInput {
+  creative: String
+  moduleName: String
+}
+
+"""Disponibilidad a domicilio o a tienda"""
+type LogisticsInfo {
+  """Disponibilidad de producto para envío a domicilio"""
+  availableInWarehouse: Boolean
+
+  """Disponibilidad de producto para recoger en tienda"""
+  availableInStore: Boolean
+}
+
+"""Unidad minima de contruccion de paginas"""
+type Module {
+  id: ID
+  index: Int
+  content: Content
+}
+
+"""Metodos de actualizacion"""
+type Mutation {
+  viewer: ViewerMutation
+}
+
+"""Barra informativa"""
+type Pleca {
+  image: Image
+  link: Link
+  js(module: String): JSDependency
+}
+
+"""Barra informativa input"""
+input PlecaInput {
+  image: ImageInput
+  link: LinkInput
+}
+
+type Product {
+  id: ID
+  name: String
+  sku: String
+  image: String
+  price: Float
+  lastPrice: Float
+  specialPrice: Float
+  uri: String
+  seller: String
+  hasLowStock: Boolean
+  hasFreeShipping: Boolean
+  isOnlyAvailableInWarehouse: Boolean
+  isOnlyAvailableInStore: Boolean
+  category: String
+  family: String
+  line: String
+  brand: String
+  stock: Int
+  available: Boolean
+  maxInstallments: Int
+  productId: String
+  addToCartLink: String
+  weeks: Float
+  weekly: String
+  weeklyDescription: String
+  fee: Float
+  ranking: Float
+  score: Float
+  commercialRanking: Float
+  logisticsInfo: LogisticsInfo
+  keywords: String
+}
+
+"""Metodos de consulta"""
+type Query {
+  viewer: Viewer
+}
+
+"""Fecha en formato JS"""
+scalar ScalarDate
+
+"""Imagen del banner"""
+type Slide {
+  image: Image
+  link: Link
+  callToAction: Text
+}
+
+"""Imagen del banner"""
+input SlideInput {
+  image: ImageInput
+  link: LinkInput
+  callToAction: TextInput
+}
+
+"""Conjunto de slides"""
+type Slider {
+  slides: [Slide]
+  minSlides: Int
+  maxSlides: Int
+  direction: String
+  interval: Int
+  js(module: String): JSDependency
+}
+
+"""Conjunto de slides"""
+input SliderInput {
+  slides: [SlideInput]
+  minSlides: Int
+  maxSlides: Int
+  direction: String
+  interval: Int
+}
+
+type Subscription {
+  lightningOffer: LightningOffer
+}
+
+"""Modulos de contendio de las páginas"""
+type Template {
+  id: ID
+  uri: String
+  requestedUri: String
+  modules: [Module]
+}
+
+"""Modulos de edición de las páginas"""
+type TemplateMutation {
+  id: ID
+  uri: String
+  index: Int
+  slider: Slider
+  pleca: Pleca
+}
+
+"""Campo primario de texto"""
+type Text {
+  value: String
+}
+
+"""Campo primario de texto"""
+input TextInput {
+  value: String
+}
+
+"""Usuario que consulta la aplicación"""
+type Viewer {
+  id: ID
+  template(uri: String): Template
+  product(sku: String): Product
+  lightningOffer: LightningOffer
+  lightningOfferRules: [LightningOfferRule]
+}
+
+"""Usuario que edita la aplicación"""
+type ViewerMutation {
+  id: ID
+  template(id: ID, uri: String, index: Int, slider: SliderInput, pleca: PlecaInput, typename: String): TemplateMutation
+  lightningOffer(rule: LightningOfferRuleInput): LightningOfferRule
+}

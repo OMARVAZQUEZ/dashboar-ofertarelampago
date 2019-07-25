@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "dashboard": {
+      "schemaPath": "schema.graphql",
+      "extensions": {
+        "endpoints": {
+          "default": "https://api.ektdevelopers.com/_graphql"
+        }
+      }
+    }
+  }
+}
