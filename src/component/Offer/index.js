@@ -4,6 +4,10 @@ import Button from "../Button";
 import { createFragmentContainer } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import "moment/locale/es";
+
+moment.locale("es");
 
 const Offer = props => {
   const { id, sku, startDate, endDate } = props.data;
@@ -13,9 +17,11 @@ const Offer = props => {
         <h3 className={styles.offerId}>{id}</h3>
         <p className={styles.skuNumber}>sku: {sku} </p>
         <div className={styles.dateRange}>
-          {startDate} - {endDate}
+          {moment(new Date(startDate)).format("LLLL")} /{" "}
+          {moment(new Date(endDate)).format("LLLL")}
         </div>
       </div>
+
       <div className={styles.rigthBox}>
         <Link
           to={`/editar/${id}`}

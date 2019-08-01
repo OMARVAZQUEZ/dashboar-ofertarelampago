@@ -67,11 +67,7 @@ const Form = props => {
     required: true,
     value: data.startDate || new Date(),
     validateEvent: "change",
-    customValidation: value => {
-      const now = new Date();
-      const start = new Date(value);
-      return now < start;
-    },
+
     errors: {
       defaultError:
         "Verifica que la fecha final sea posterior a la fecha inicial, y que estes seleccionando fechas en el futuro"
@@ -88,7 +84,7 @@ const Form = props => {
       const now = new Date();
       const start = new Date(startDate.input.value);
       const end = new Date(value);
-      return end > start && start > now;
+      return end > start && end > now;
     },
     errors: {
       defaultError:
@@ -103,7 +99,6 @@ const Form = props => {
       startDate,
       endDate
     ]);
-
     if (errors && errors.length) return;
 
     commitMutation(environment, {
